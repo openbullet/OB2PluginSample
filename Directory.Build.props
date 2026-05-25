@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OpenBullet2Root Condition="'$(OpenBullet2Root)' == ''">$(MSBuildThisFileDirectory)..\OpenBullet2</OpenBullet2Root>
+    <OpenBullet2PluginSdkDir Condition="'$(OpenBullet2PluginSdkDir)' == ''">$(MSBuildThisFileDirectory)sdk</OpenBullet2PluginSdkDir>
+  </PropertyGroup>
+</Project>

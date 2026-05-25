@@ -1,18 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <RuriLibProjectPath>$(OpenBullet2Root)\RuriLib\RuriLib.csproj</RuriLibProjectPath>
+    <RuriLibAssemblyPath>$(OpenBullet2PluginSdkDir)\RuriLib.dll</RuriLibAssemblyPath>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CalculatorLib\CalculatorLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="Exists('$(RuriLibProjectPath)')">
+    <ProjectReference Include="$(RuriLibProjectPath)" Private="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('$(RuriLibProjectPath)') and Exists('$(RuriLibAssemblyPath)')">
     <Reference Include="RuriLib">
-      <HintPath>RuriLib.dll</HintPath>
+      <HintPath>$(RuriLibAssemblyPath)</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 
+  <Target Name="ValidateRuriLibReference" BeforeTargets="ResolveReferences"
+          Condition="!Exists('$(RuriLibProjectPath)') and !Exists('$(RuriLibAssemblyPath)')">
+    <Error Text="Could not find RuriLib. Clone OpenBullet2 next to this repo or set OpenBullet2PluginSdkDir to a folder containing RuriLib.dll." />
+  </Target>
 </Project>

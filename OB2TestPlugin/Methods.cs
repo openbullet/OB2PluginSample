@@ -1,13 +1,13 @@
 ﻿using CalculatorLib;
 using RuriLib.Attributes;
 using RuriLib.Logging;
+using RuriLib.Models.Blocks;
 using RuriLib.Models.Blocks.Settings;
 using RuriLib.Models.Bots;
-using System;
 
 namespace OB2TestPlugin.Blocks.Functions
 {
-    [BlockCategory("Calculator", "Blocks that allow to perform operations on number", "#9acd32")]
+    [RuriLib.Attributes.BlockCategory("Calculator", "Blocks that allow to perform operations on number", "#9acd32")]
     public static class Methods
     {
         [Block("Adds two numbers together")]
@@ -24,14 +24,14 @@ namespace OB2TestPlugin.Blocks.Functions
 
 namespace OB2TestPlugin.Blocks.Images
 {
-    [BlockCategory("Images", "Blocks that allow to work with images", "#ffae42")]
+    [RuriLib.Attributes.BlockCategory("Images", "Blocks that allow to work with images", "#ffae42")]
     public static class Methods
     {
         [BlockAction("ImageTest")]
         public static void SayHello(RuriLib.Models.Blocks.BlockInstance block)
         {
             block.Settings["str"].InputMode = SettingInputMode.Fixed;
-            block.GetFixedSetting<StringSetting>("str").Value = "edited";
+            block.GetFixedSetting<StringSetting>("str")!.Value = "edited";
         }
 
         [BlockAction("ImageTest")]
@@ -39,8 +39,8 @@ namespace OB2TestPlugin.Blocks.Images
         {
             var imageSize = block.Descriptor.Images["myImage"].Value?.Length ?? 0;
             block.Settings["size"].InputMode = SettingInputMode.Fixed;
-            block.GetFixedSetting<IntSetting>("size").Value = imageSize;
-            (block as RuriLib.Models.Blocks.AutoBlockInstance).Safe = true;
+            block.GetFixedSetting<IntSetting>("size")!.Value = imageSize;
+            ((AutoBlockInstance)block).Safe = true;
         }
 
         [Block("Image attribute test")]
